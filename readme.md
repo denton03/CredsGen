@@ -1,7 +1,1 @@
-Generatore
-di
-Credenziali
-e
-Salvataggio
-in
-Cartella
+# Generatore di Credenziali e Salvataggio in OneDrive con Creazione cartella Credenziali   

@@ -14,15 +14,33 @@ def generate_password(length):
 
 # Function to save credentials to file
 def save_credentials(username, password, filename):
-    folder_path = 'folder of credentials'
+    one_drive_path = os.environ.get('OneDrive')
+      
+    if not one_drive_path:
+        raise EnvironmentError("OneDrive path not found in environment variables.")  
+    folder_path = os.path.join(one_drive_path, 'Credentials')
+    
+    # Check if the 'Credentials' directory exists, create it if it doesn't
+    if not os.path.exists(folder_path):
+        try:
+            os.makedirs(folder_path)
+            print(f"Created directory: {folder_path}")
+        except Exception as e:
+            raise OSError(f"Failed to create directory: {e}")
+    
     file_path = os.path.join(folder_path, filename + ".txt")
-    with open(file_path, 'w') as file:  # Open the file in write mode ('w')
-        file.write(f'{username}\n')
-        file.write(f'{password}\n\n')
+    
+    try:
+        with open(file_path, 'w') as file:
+            file.write(f'{username}\n')
+            file.write(f'{password}\n\n')
+        print(f"Credentials saved to {file_path}")
+    except Exception as e:
+        print(f"Failed to save credentials: {e}")
 
 # Function to display credentials
 def display_credentials(username, password):
-    print(f"\n\n\nCredentials:\n")
+    print(f"\n\n\nCredenziali:\n")
     print(f"Username: {username}")
     print(f"Password: {password}\n")
 
